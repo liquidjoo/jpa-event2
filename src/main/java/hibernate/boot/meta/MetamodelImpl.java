@@ -18,8 +18,10 @@ public class MetamodelImpl {
     private final Map<String, EntityLoader> entityLoaderMap = new HashMap<>();
     private final Map<String, EntityCollectionLoader> entityCollectionLoaderMap = new HashMap<>();
     private final JdbcTemplate jdbcTemplate;
+    private final InflightMetadataCollector inflightMetadataCollector;
 
     public MetamodelImpl(InflightMetadataCollector inflightMetadataCollector, JdbcTemplate jdbcTemplate) {
+        this.inflightMetadataCollector = inflightMetadataCollector;
         this.jdbcTemplate = jdbcTemplate;
 
         initPersister(inflightMetadataCollector, jdbcTemplate);
@@ -39,5 +41,13 @@ public class MetamodelImpl {
         for (PersistentClass entityBinding : entityBindings) {
             entityPersisterMap.put(entityBinding.getEntityName(), new EntityPersister(jdbcTemplate));
         }
+    }
+
+    public EntityLoader getEntityLoader(String entityName) {
+        return entityLoaderMap.get(entityName);
+    }
+
+    public InflightMetadataCollector getInflightMetadataCollector() {
+        return inflightMetadataCollector;
     }
 }
