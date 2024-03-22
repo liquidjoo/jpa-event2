@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -87,7 +88,7 @@ class EntityLoaderTest {
 
     @Test
     void eager_lazy_join_모두_포함된_entity를_반환한다() {
-        CollectionBindingMap collectionBindingMap = new CollectionBindingMap();
+        CollectionBindingMap collectionBindingMap = new CollectionBindingMap(new HashMap<>());
         collectionBindingMap.addCollectionBinding(new PersistentCollectionClass(new PersistentClass<>(Order.class), LazyOrderItem.class));
 
         entityLoader = new EntityLoader(jdbcTemplate, collectionBindingMap);

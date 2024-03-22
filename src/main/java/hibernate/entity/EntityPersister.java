@@ -13,14 +13,12 @@ import java.util.Map;
 public class EntityPersister {
 
     private final JdbcTemplate jdbcTemplate;
-    private final EntityBindingMap entityBindingMap;
     private final InsertQueryBuilder insertQueryBuilder = new InsertQueryBuilder();
     private final DeleteQueryBuilder deleteQueryBuilder = new DeleteQueryBuilder();
     private final UpdateQueryBuilder updateQueryBuilder = new UpdateQueryBuilder();
 
-    public EntityPersister(final JdbcTemplate jdbcTemplate, final EntityBindingMap entityBindingMap) {
+    public EntityPersister(final JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.entityBindingMap = entityBindingMap;
     }
 
     public boolean update(final PersistentClass<?> persistentClass, final Object entityId, final Map<EntityColumn, Object> updateFields) {
